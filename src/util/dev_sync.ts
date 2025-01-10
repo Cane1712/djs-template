@@ -1,7 +1,8 @@
 import { REST, Routes } from "discord.js";
 import * as fs from "fs/promises";
 import * as path from "path";
-const commands: any[] = []
+
+const commands = []
 const entries = await fs.readdir(path.join(process.cwd(), "src", "commands"), { withFileTypes: true, recursive: true });
 for (const entry of entries) {
     if (entry.isFile() && entry.name.endsWith(".ts")) {

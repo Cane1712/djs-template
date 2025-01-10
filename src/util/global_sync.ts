@@ -1,12 +1,15 @@
 import { REST, Routes } from "discord.js";
 import * as fs from "fs/promises";
 import * as path from "path";
-const commands: any[] = []
+
+const commands = []
 const entries = await fs.readdir(path.join(process.cwd(), "src", "commands"), { withFileTypes: true, recursive: true });
 for (const entry of entries) {
     if (entry.isFile() && entry.name.endsWith(".ts")) {
+        
         //use named destructuring (i hate JS) to get the default export from the file
         const {default: command} = await import(path.join(entry.parentPath, entry.name));            
+        
         //and add it to the commands collection
         commands.push(command.data.toJSON());
     }
